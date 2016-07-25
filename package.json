@@ -1,6 +1,6 @@
 {
   "name": "wordpress-foundation-twig-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Official ZURB Template for Foundation for Sites.",
   "main": "gulpfile.js",
   "keywords": [
