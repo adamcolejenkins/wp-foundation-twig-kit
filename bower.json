@@ -1,0 +1,40 @@
+{
+  "name": "wordpress-foundation-twig-kit",
+  "homepage": "https://github.com/adamcolejenkins/wordpress-foundation-twig-kit",
+  "version": "1.0.0",
+  "authors": [
+    {
+      "name": "Adam Jenkins",
+      "email": "adam@adamcolejenkins.com",
+      "homepage": "http://adamcolejenkins.com"
+    }
+  ],
+  "description": "WordPress starter theme with Foundation built with gulp and twig support.",
+  "main": "gulpfile.js",
+  "license": "GPL-3.0",
+  "keywords": [
+    "wordpress",
+    "wordpress-theme",
+    "starter-kit",
+    "gulp",
+    "bower",
+    "scss",
+    "browsersync",
+    "foundation",
+    "zurb-foundation"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".sass-cache",
+    "dist"
+  ],
+  "dependencies": {
+    "foundation-sites": "~6.2.3",
+    "motion-ui": "~1.2.2"
+  },
+  "private": true
+}
