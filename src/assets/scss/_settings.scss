@@ -42,6 +42,21 @@
 
 @import 'util/util';
 
+// 0. Theme Metadata
+// -----------------
+
+$theme-name: 'Yeti Kit';
+$theme-uri: 'https://github.com/adamcolejenkins/wordpress-foundation-twig-kit';
+$theme-author: 'Adam Jenkins';
+$theme-author-uri: 'http://adamcolejenkins.com';
+$theme-description: 'WordPress starter theme with Foundation built with gulp and twig support.';
+$theme-version: '1.0.0';
+$theme-license: 'GPLv3';
+$theme-license-uri: 'http://www.gnu.org/licenses/gpl.txt';
+$theme-tags: (light, responsive-layout, right-sidebar, starter-theme, two-columns, translation-ready, white, zurb-foundation);
+$theme-text-domain: 'yeti';
+$theme-text-domain-path: '/languages/';
+
 // 1. Global
 // ---------
 
