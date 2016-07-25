@@ -1,6 +1,6 @@
 # WordPress starter kit with Foundation, Timber and Gulp built in
 
-<!-- [![devDependency Status](https://david-dm.org/zurb/foundation-zurb-template/dev-status.svg)](https://david-dm.org/zurb/foundation-zurb-template#info=devDependencies) -->
+[![devDependency Status](https://david-dm.org/adamcolejenkins/wp-foundation-twig-kit/dev-status.svg)](https://david-dm.org/adamcolejenkins/wp-foundation-twig-kit#info=devDependencies)
 
 
 - Timber templates
