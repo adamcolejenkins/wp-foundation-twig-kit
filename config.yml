@@ -1,6 +1,9 @@
 # Your project's server will run on localhost:xxxx at this port
 PORT: 8000
 
+# We need to use a proxy instead of the built-in server because WordPress has to do some server-side rendering for the theme to work
+PROXY: 'wordpress.sites.dev/'
+
 # Autoprefixer will make sure your CSS works with these browsers
 COMPATIBILITY:
   - "last 2 versions"
@@ -24,9 +27,7 @@ PATHS:
     - "!src/assets/{img,js,scss}/**/*"
   # Paths to theme files, which will get copied over
   theme:
-    bin: "src/bin/**/*"
-    tests: "src/tests/**/*"
-    templates: "src/templates/**/*"
+    - "src/**/*.{php,twig,sh,xml}"
   # Paths to Sass libraries, which can then be loaded with @import
   sass:
     - "bower_components/foundation-sites/scss"

@@ -20,6 +20,7 @@ const PRODUCTION = !!( yargs.argv.production );
 const {
   COMPATIBILITY,
   PORT,
+  PROXY,
   UNCSS_OPTIONS,
   PATHS,
   THEME
@@ -32,7 +33,7 @@ function loadConfig() {
 
 // Build the "dist" folder by running all of the below tasks
 gulp.task( 'build',
-  gulp.series( clean, gulp.parallel( pages, sass, javascript, images, copy ), styleGuide ) );
+  gulp.series( clean, gulp.parallel( theme, sass, javascript, images, copy ), styleGuide ) );
 
 // Build the site, run the server, and watch for file changes
 gulp.task( 'default',
@@ -51,25 +52,7 @@ function copy() {
     .pipe( gulp.dest( PATHS.dist + '/assets' ) );
 }
 
-// Copy page templates into finished HTML files
-function pages() {
-  return gulp.src( 'src/pages/**/*.{html,hbs,handlebars}' )
-    .pipe( panini( {
-      root: 'src/pages/',
-      layouts: 'src/layouts/',
-      partials: 'src/partials/',
-      data: 'src/data/',
-      helpers: 'src/helpers/'
-    } ) )
-    .pipe( gulp.dest( PATHS.dist ) );
-}
-
-// Load updated HTML templates and partials into Panini
-function resetPages( done ) {
-  panini.refresh();
-  done();
-}
-
+// TODO: Consider whether this is necessary
 // Generate a style guide from the Markdown content and HTML template in styleguide/
 function styleGuide( done ) {
   sherpa( 'src/styleguide/index.md', {
@@ -78,10 +61,16 @@ function styleGuide( done ) {
   }, done );
 }
 
+// Copy themes to dist, Gulp won't be doing anything with these files.
+function theme() {
+  return gulp.src( PATHS.theme )
+    .pipe( gulp.dest( PATHS.dist ) );
+}
+
 // Compile Sass into CSS
 // In production, the CSS is compressed
 function sass() {
-  return gulp.src( 'src/assets/scss/app.scss' )
+  return gulp.src( 'src/assets/scss/style.scss' )
     .pipe( $.sourcemaps.init() )
     .pipe( $.sass( {
         includePaths: PATHS.sass
@@ -91,10 +80,10 @@ function sass() {
       browsers: COMPATIBILITY
     } ) )
     // Comment in the pipe below to run UnCSS in production
-    //.pipe($.if(PRODUCTION, $.uncss(UNCSS_OPTIONS)))
+    .pipe( $.if( PRODUCTION, $.uncss( UNCSS_OPTIONS ) ) )
     .pipe( $.if( PRODUCTION, $.cssnano() ) )
     .pipe( $.if( !PRODUCTION, $.sourcemaps.write() ) )
-    .pipe( gulp.dest( PATHS.dist + '/assets/css' ) )
+    .pipe( gulp.dest( PATHS.dist ) )
     .pipe( browser.reload( {
       stream: true
     } ) );
@@ -129,8 +118,11 @@ function images() {
 // Start a server with BrowserSync to preview the site in
 function server( done ) {
   browser.init( {
-    server: PATHS.dist,
-    port: PORT
+    // server: PATHS.dist,
+    port: PORT,
+    proxy: PROXY,
+    open: false,
+    notify: false
   } );
   done();
 }
@@ -141,13 +133,11 @@ function reload( done ) {
   done();
 }
 
-// Watch for changes to static assets, pages, Sass, and JavaScript
+// Watch for changes to static assets, theme, Sass, and JavaScript
 function watch() {
   gulp.watch( PATHS.assets, copy );
-  gulp.watch( 'src/pages/**/*.html' )
-    .on( 'change', gulp.series( pages, browser.reload ) );
-  gulp.watch( 'src/{layouts,partials}/**/*.html' )
-    .on( 'change', gulp.series( resetPages, pages, browser.reload ) );
+  gulp.watch( 'src/**/*.{php,twig}' )
+    .on( 'change', gulp.series( theme, browser.reload ) );
   gulp.watch( 'src/assets/scss/**/*.scss', sass );
   gulp.watch( 'src/assets/js/**/*.js' )
     .on( 'change', gulp.series( javascript, browser.reload ) );
