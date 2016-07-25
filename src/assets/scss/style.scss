@@ -4,6 +4,20 @@
 @import 'foundation';
 @import 'motion-ui';
 
+/*!
+Theme Name: #{$theme-name}
+Theme URI: #{$theme-uri}
+Author: #{$theme-author}
+Author URI: #{$theme-author-uri}
+Description: #{$theme-description}
+Version: #{$theme-version}
+License: #{$theme-license}
+License URI: #{$theme-license-uri}
+Tags: #{$theme-tags}
+Text Domain: #{$theme-text-domain}
+Domain Path: #{$theme-text-domain-path}
+*/
+
 @include foundation-global-styles;
 @include foundation-grid;
 // @include foundation-flex-grid;
