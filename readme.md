@@ -25,7 +25,7 @@ To use this kit, your computer needs:
 To manually set up the kit, first download it with Git:
 
 ```bash
-git clone https://github.com/zurb/foundation-zurb-template projectname
+git clone https://github.com/adamcolejenkins/wp-foundation-twig-kit projectname
 ```
 
 Then open the folder in your command line, and install the needed dependencies:
